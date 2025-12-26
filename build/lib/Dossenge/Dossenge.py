@@ -41,13 +41,13 @@ def chicken_rabbit(head,foot):
     return solutions
 
 def dossenge():
-    # with open(file,'r') as f:
-        # equal = f.readline(0)
-        # cr = f.readline(1)
+    # # # with open(file,'r') as f:
+        # # # equal = f.readline(0)
+        # # # cr = f.readline(1)
         # more
-    # with open(current_dir+char+'config.toml','r') as f:
-        # data = toml.load(f)
-    # file = f'{data["path"]}/{data["lang"]}{data["ext"]}'
+    # # # with open(current_dir+char+'config.toml','r') as f:
+        # # # data = toml.load(f)
+    # # # file = f'{data["path"]}/{data["lang"]}{data["ext"]}'
     equal = '判断两数是否相等'
     cr = '解决鸡兔同笼问题'
     try:

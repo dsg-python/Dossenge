@@ -9,7 +9,7 @@ Dossenge 是一个为 Python 开发者设计的实用工具库，旨在提供一
 ### 方法列表
 
 **引入方法：**
-`from Dossenge import Dossenge as Dossenge`或`from Dossenge.Dossenge import *`
+`from Dossenge import Dossenge`或`from Dossenge.Dossenge import *`或`import Dossenge`
 
 **方法列表：**
 ```python
@@ -60,16 +60,30 @@ if response:
 	
 ```
 
-## 进度条
+## 可数组类
 
-**引入方法：** `from Dossenge.progress import *`
+**引入方法：** `from Dossenge.arrayable_class import *`
 
 **方法列表：**
 ```python
-Dossenge.progress.progress(start, end, timer, progresses) # 发送带有自定义请求头的 HTTP 请求
-# progresses参数是一个列表，代表每走1格执行的Python代码
+Dossenge.arrayable_class.arrayable(func) # 类装饰器，用于类可数组，使用MyClass[size]
+Dossenge.arrayable_class.Array(size, typ) # 数组类
+Dossenge.arrayable_class.arrayable_class_meta() # 可数组类元类
+Dossenge.arrayable_class.arrayable_class() # 空基类，可继承
 ```
 
+**示例：**
+
+```python
+from Dossenge.arrayable_class import arrayable_class
+
+class MyClass(arrayable_class):
+    pass
+
+arr = MyClass[5]
+
+	
+```
 
 ## 可执行文件
 ```bash
@@ -81,16 +95,3 @@ dossenge equal 0.1+0.2 0.3 5
 dossenge cr head foot
 ```
 解决鸡兔同笼问题
-
-*配置文件：（已弃用）*
-*config.toml*
-*lang 文件名*
-*path 文件路径*
-*ext 扩展名*
-
-*可自定义语言包（已弃用）*
-*格式为*
-*"*
-*判断两数是否相等*
-*解决鸡兔同笼问题*
-*"*

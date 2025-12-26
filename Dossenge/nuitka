@@ -1,0 +1,3 @@
+from nuitka.utils.FileOperations import getRunTimeTempDir
+def getIncludedDataResourceFile(file):
+    return getRunTimeTempDir() + f'/{file}'
