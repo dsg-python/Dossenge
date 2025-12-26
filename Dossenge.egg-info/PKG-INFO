@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
 Name: dossenge
-Version: 1.0
-Summary: Dossenge 1.0
+Version: 1.0.post1
+Summary: Dossenge 1.0.post1 紧急修复
 Home-page: http://github.com/Dossenge/Dossenge.git
 Author: Dossenge
 Requires-Python: >=3.5
