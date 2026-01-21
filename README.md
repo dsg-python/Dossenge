@@ -68,6 +68,7 @@ if response:
 ```python
 Dossenge.arrayable_class.arrayable(func) # 类装饰器，用于类可数组，使用MyClass[size]
 Dossenge.arrayable_class.array(size, typ) # 数组类
+    Dossenge.arrayable_class.array(size, typ).print() # 输出一个array(size, ..stdio.char)对象
 Dossenge.arrayable_class.arrayable_class_meta() # 可数组类元类
 Dossenge.arrayable_class.arrayable_class() # 空基类，可继承
 ```
