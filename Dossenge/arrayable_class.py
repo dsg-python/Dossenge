@@ -66,12 +66,9 @@ class array(object):
     def __str__(self):
         return f"{self.typ.__name__}[{self.size}]: {self._data}"
     
-    def printchar(self):
-        if self.typ is char:
-            for i in self._data:
-                print(i, end="")
-        else:
-            raise TypeError("printchar(): self.typ must be char")
+    def print(self):
+        for i in self._data:
+            print(i, end="")
 
 
 class arrayable_class_meta(type):

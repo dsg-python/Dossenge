@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
 Name: dossenge
-Version: 1.0.1
-Summary: Dossenge 1.0.1 紧急修复
+Version: 1.1
+Summary: Dossenge 1.1 大更新
 Home-page: http://github.com/Dossenge/Dossenge.git
 Author: Dossenge
 Requires-Python: >=3.5
@@ -47,7 +47,7 @@ Dossenge.string.save_add(filepath,string) # 往filepath文件中增加写入stri
 
 **方法列表：**
 ```python
-Dossenge.http.header_request(url, **headers) # 发送带有自定义请求头的 HTTP 请求
+Dossenge.http.header_request(url, **headers) # 发送带有自定义请求头的 HTTP 请求，使用requests库
 ```
 
 **示例：**
@@ -64,6 +64,9 @@ headers = {
 
 # 发送请求
 response = header_request("https://api.example.com/data", **headers)
+
+# 也可
+response2 = header_request("https://api.example.com/data", User-Agent="MyApp/1.0")
 
 # 打印响应内容
 if response:
@@ -93,6 +96,51 @@ class MyClass(arrayable_class):
     pass
 
 arr = MyClass[5]
+
+	
+```
+
+## C++ 语法
+
+**引入方法：** `from Dossenge.cppython import *`
+
+**方法列表：**
+```python
+Dossenge.cppython.printf(text, **formatter) # 没啥用，就是text % formatter
+Dossenge.cppython.char() # 类，字符类，也可存UInt8，为arrayable
+Dossenge.cppython.Int128() # Int128类，不支持运算，只是二进制
+Dossenge.cppython.UInt128() # 无符号版
+... # 有Int64还有UInt64，还有32，还有16，还有8，还有UInt1
+# 特别注明：Int8就是char
+Dossenge.cppython.struct() # 结构体！
+    Dossenge.cppython.struct().pack() # 打包二进制
+    Dossenge.cppython.struct.unpack() # 类方法，根据二进制解包为对象
+Dossenge.cppython.IStream(io) # 输入流
+Dossenge.cppython.OStream(io) # 输出流
+Dossenge.cppython.cout # 输出到sys.stdout
+Dossenge.cppython.cin # 输入从sys.stdin
+Dossenge.cppython.cerr # 输出到sys.stderr
+Dossenge.cppython.clog # 输出到sys.stderr
+Dossenge.cppython.endl # 换行 + flush
+Dossenge.cppython.flush # flush刷新
+Dossenge.cppython.ws
+Dossenge.cppython.Variable # 列表包装引用，应在cin >> var时使用Variable对象
+Dossenge.cppython.std # 命名空间
+```
+
+**示例：**
+
+```python
+from Dossenge.cppython import *
+
+class Point(struct):
+    x: Float128
+	y: Float128
+	
+
+point = Point(x=Float128(1.0), y=Float128(1.0)) # 需要转换！
+byte = point.pack()
+new_point = Point.unpack(byte)
 
 	
 ```

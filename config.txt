@@ -1,4 +1,0 @@
-# Language Set
-lang = 'zh-cn'
-path = './langs'
-ext = '.lang'
