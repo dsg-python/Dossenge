@@ -84,9 +84,9 @@ def _generate_format(*args):
 def is_packable(fmt: str, *values) -> bool:
     """检测是否能用 struct.pack 成功打包"""
     try:
-        packed = struct.pack(fmt, *values)
+        packed = _struct.pack(fmt, *values)
         return True, packed
-    except (struct.error, TypeError, OverflowError):
+    except Exception:
         return False, None
 
 

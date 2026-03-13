@@ -12,8 +12,8 @@ from setuptools import setup, find_packages
 
 setup(
     name='dossenge',
-    version='1.1',
-    description='Dossenge 1.1 大更新',
+    version='1.1.1',
+    description='Dossenge 1.1.1 修复 11111111',
     long_description=open('README.md','r',encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     author='Dossenge',
