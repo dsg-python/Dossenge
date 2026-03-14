@@ -114,15 +114,15 @@ Dossenge.cppython.endl # 换行 + flush
 Dossenge.cppython.flush # flush刷新
 Dossenge.cppython.ws
 Dossenge.cppython.Variable # 列表包装引用，应在cin >> var时使用Variable对象
-Dossenge.cppython.std # 命名空间
+Dossenge.cppython.std # 命名空间，所有均被包装到属性，建议使用std.struct代替struct
 ```
 
 **示例：**
 
 ```python
-from Dossenge.cppython import *
+from Dossenge.cppython import std
 
-class Point(struct):
+class Point(std.struct):
     x: Float128
 	y: Float128
 	
