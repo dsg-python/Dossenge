@@ -101,9 +101,9 @@ Dossenge.cppython.Int128() # Int128类，不支持运算，只是二进制
 Dossenge.cppython.UInt128() # 无符号版
 ... # 有Int64还有UInt64，还有32，还有16，还有8，还有UInt1
 # 特别注明：Int8就是char
-Dossenge.cppython.struct() # 结构体！
-    Dossenge.cppython.struct().pack() # 打包二进制
-    Dossenge.cppython.struct.unpack() # 类方法，根据二进制解包为对象
+Dossenge.cppython.Struct() # 结构体！
+    Dossenge.cppython.Struct().pack() # 打包二进制
+    Dossenge.cppython.Struct.unpack() # 类方法，根据二进制解包为对象
 Dossenge.cppython.IStream(io) # 输入流
 Dossenge.cppython.OStream(io) # 输出流
 Dossenge.cppython.cout # 输出到sys.stdout
@@ -114,7 +114,7 @@ Dossenge.cppython.endl # 换行 + flush
 Dossenge.cppython.flush # flush刷新
 Dossenge.cppython.ws
 Dossenge.cppython.Variable # 列表包装引用，应在cin >> var时使用Variable对象
-Dossenge.cppython.std # 命名空间，所有均被包装到属性，建议使用std.struct代替struct
+Dossenge.cppython.std # 命名空间，所有均被包装到属性，建议使用std.struct代替Struct
 ```
 
 **示例：**

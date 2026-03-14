@@ -1178,6 +1178,9 @@ clog = OStream(sys.stderr)
 class _Namespace:
     pass
 
+Struct = struct
+del struct
+
 std = _Namespace()
 std.cin = cin
 std.cout = cout
@@ -1201,5 +1204,5 @@ std.Int8 = Int8
 std.char = char
 std.UInt8 = UInt8
 std.UInt1 = UInt1
-std.struct = struct
+std.struct = Struct
 std._Namespace = _Namespace
