@@ -86,7 +86,7 @@ def is_packable(fmt: str, *values) -> bool:
     try:
         packed = _struct.pack(fmt, *values)
         return True, packed
-    except Exception:
+    except (_struct.error, OverflowError, TypeError):
         return False, None
 
 
