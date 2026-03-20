@@ -127,7 +127,7 @@ class Point(std.struct):
 	y: Float128
 	
 
-point = Point(x=Float128(1.0), y=Float128(1.0)) # 需要转换！
+point = Point(x=1.0, y=1.0) # 无需再转换！自动转换！
 byte = point.pack()
 new_point = Point.unpack(byte)
 

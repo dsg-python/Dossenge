@@ -1,4 +1,7 @@
-from . import arrayable_class
+# Copyright (c) 2026 Dossenge
+# Released under the MIT License (see LICENSE file for details)
+
+from .arrayable_class import arrayable
 import struct as _struct
 from typing import get_type_hints, Any, Union, Optional, TextIO
 import ctypes
@@ -95,14 +98,17 @@ decimal.getcontext().prec = 50
 def printf(text, *formatter):
     print(str(text) % formatter)
 
-@arrayable_class.arrayable
+@arrayable
 class char(object):
     _size = 1
     def __init__(self, value):
+        if hasattr(value, "_low"):
+            self._low = value._low
+            return
         if isinstance(value, int):
-            self.value = value
+            self._low = value
         elif isinstance(value, str):
-            self.value = ord(value)
+            self._low = ord(value)
     def __str__(self):
         return self.value
     def __repr__(self):
@@ -143,9 +149,14 @@ class char(object):
             raise ValueError("byteorder is not < or >")
         return cls(_low)
 
+
 class Int128(object):
     _size = 16
     def __init__(self, value: int):
+        if hasattr(value, "_low") and hasattr(value, "_high"):
+            self._low = value._low
+            self._high = value._high
+            return
         self._high = (value >> 64) & 0xFFFFFFFFFFFFFFFF
         if self._high > 0x7FFFFFFFFFFFFFFF:
             self._high -= 0x10000000000000000
@@ -185,6 +196,10 @@ class Int128(object):
 class UInt128(object):
     _size = 16
     def __init__(self, value: int):
+        if hasattr(value, "_low") and hasattr(value, "_high"):
+            self._low = value._low
+            self._high = value._high
+            return
         self._high = (value >> 64) & 0xFFFFFFFFFFFFFFFF
         self._low = value & 0xFFFFFFFFFFFFFFFF
     def to_int(self):
@@ -215,6 +230,9 @@ class UInt128(object):
 class Int64(object):
     _size = 8
     def __init__(self, value: int):
+        if hasattr(value, "_low"):
+            self._low = value._low
+            return
         self._low = value & 0xFFFFFFFFFFFFFFFF
         if self._low > 0x7FFFFFFFFFFFFFFF:
             self._low -= 0x10000000000000000
@@ -244,6 +262,9 @@ class Int64(object):
 class UInt64(object):
     _size = 8
     def __init__(self, value: int):
+        if hasattr(value, "_low"):
+            self._low = value._low
+            return
         self._low = value & 0xFFFFFFFFFFFFFFFF
     def to_int(self):
         return self._low
@@ -271,6 +292,8 @@ class UInt64(object):
 class Int32(object):
     _size = 4
     def __init__(self, value: int):
+        if hasattr(value, "_low"):
+            self._low = value._low
         self._low = value & 0xFFFFFFFF
         if self._low > 0x7FFFFFFF:
             self._low -= 0x100000000
@@ -300,6 +323,9 @@ class Int32(object):
 class UInt32(object):
     _size = 4
     def __init__(self, value: int):
+        if hasattr(value, "_low"):
+            self._low = value._low
+            return 
         self._low = value & 0xFFFFFFFF
     def to_int(self):
         return self._low
@@ -327,6 +353,9 @@ class UInt32(object):
 class Int16(object):
     _size = 2
     def __init__(self, value: int):
+        if hasattr(value, "_low"):
+            self._low = value._low
+            return 
         self._low = value & 0xFFFF
         if self._low > 0x7FFF:
             self._low -= 0x10000
@@ -356,6 +385,9 @@ class Int16(object):
 class UInt16(object):
     _size = 2
     def __init__(self, value: int):
+        if hasattr(value, "_low"):
+            self._low = value._low
+            return 
         self._low = value & 0xFFFF
     def to_int(self):
         return self._low
@@ -384,6 +416,9 @@ Int8 = char
 class UInt8(object):
     _size = 1
     def __init__(self, value: int):
+        if hasattr(value, "_low"):
+            self._low = value._low
+            return 
         self._low = value & 0xFF
     def to_int(self):
         return self._low
@@ -411,6 +446,9 @@ class UInt8(object):
 class UInt1(object):
     _size = 1
     def __init__(self, value: int):
+        if hasattr(value, "_low"):
+            self._low = value._low
+            return 
         self._low = value & 0x1
     def to_int(self):
         return self._low
@@ -442,6 +480,11 @@ class UInt1(object):
 class Float128(object):
     _size = 16
     def __init__(self, value: float):
+        if hasattr(value, "_sign") and hasattr(value, "_exp") and hasattr(value, "_man"):
+            self._sign = value._sign
+            self._exp = value._exp
+            self._man = value._man
+            return
         int64_v = int.from_bytes(_struct.pack('>d', value), byteorder="big")
         sign = (int64_v >> 63) & 1
         exp64 = (int64_v >> 52) & 0x7FF
@@ -609,6 +652,11 @@ class Float128(object):
 class Double(object):
     _size = 8
     def __init__(self, value: float):
+        if hasattr(value, "_sign") and hasattr(value, "_exp") and hasattr(value, "_man"):
+            self._sign = value._sign
+            self._exp = value._exp
+            self._man = value._man
+            return
         int64_v = int.from_bytes(_struct.pack('>d', value), byteorder="big")
         sign = (int64_v >> 63) & 1
         exp64 = (int64_v >> 52) & 0x7FF
@@ -738,6 +786,11 @@ class Float(object):
     _size = 4
     
     def __init__(self, value: float):
+        if hasattr(value, "_sign") and hasattr(value, "_exp") and hasattr(value, "_man"):
+            self._sign = value._sign
+            self._exp = value._exp
+            self._man = value._man
+            return
         int32_v = int.from_bytes(_struct.pack('>f', value), byteorder="big")
         self._sign = (int32_v >> 31) & 1
         self._exp = (int32_v >> 23) & 0xFF
@@ -853,8 +906,13 @@ class Float(object):
 
 class struct(object):
     def __init__(self, **kwargs):
-        for key in get_type_hints(self.__class__):
+        """
+        要求类型注解必须为可单参数构造的类，且支持拷贝初始化
+        """
+        for key, typ in get_type_hints(self.__class__).items():
             value = kwargs.get(key, getattr(self.__class__, key, None))
+            if is_packable(_generate_format(typ(0)), typ(0)):
+                value = typ(value)
             setattr(self, key, value)
     
     def pack(self, byteorder='<'):

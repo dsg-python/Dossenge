@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Dossenge
+# Released under the MIT License (see LICENSE file for details)
+
 # from abc import ABC, abstractmethod
 undefined = type('undefined', (object, ), {})()
 
