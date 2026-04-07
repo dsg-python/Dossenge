@@ -112,8 +112,8 @@ Dossenge.cppython.cerr # 输出到sys.stderr
 Dossenge.cppython.clog # 输出到sys.stderr
 Dossenge.cppython.endl # 换行 + flush
 Dossenge.cppython.flush # flush刷新
-Dossenge.cppython.ws
-Dossenge.cppython.Variable # 列表包装引用，应在cin >> var时使用Variable对象
+Dossenge.cppython.ws # 跳过空白
+Dossenge.cppython.Variable # 列表包装引用，应在cin >> var时使用Variable对象，用法：Variable(5)
 Dossenge.cppython.std # 命名空间，所有均被包装到属性，建议使用std.struct代替Struct
 ```
 
@@ -130,7 +130,7 @@ class Point(std.struct):
 point = Point(x=1.0, y=1.0) # 无需再转换！自动转换！
 byte = point.pack()
 new_point = Point.unpack(byte)
-
+std.cout << byte
 	
 ```
 

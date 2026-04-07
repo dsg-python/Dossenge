@@ -1221,7 +1221,16 @@ class _Flush:
         return stream
 
 class _Ws:
-    def __call__(self, stream):
+    """模拟 std::ws（跳过空白）"""
+    def __call__(self, stream: IStream):
+        if hasattr(stream.io, 'read'):
+            while True:
+                pos = stream.io.tell() if hasattr(stream.io, 'tell') else None
+                char = stream.io.read(1)
+                if not char or not char.isspace():
+                    if pos is not None and char:
+                        stream.io.seek(pos)
+                    break
         return stream
 
 endl = _Endl()
